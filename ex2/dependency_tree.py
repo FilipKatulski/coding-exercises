@@ -1,6 +1,6 @@
 """
 This script is responsible for creating a dependency tree for a given JSON file.
-
+If not specified otherwise, the script will use the default JSON file path, "example1.json".
 """
 import argparse
 import json
@@ -19,23 +19,51 @@ def _is_valid_path(parser, arg):
     else:
         return arg
 
-def create_dependency_tree(json_file_path: str) -> None:
-    ...
-
-def main():
-
-    # Create an argument parser
+def arg_parser() -> argparse.Namespace:
+    """
+    Creates an argument parser for the script.
+    """
     parser = argparse.ArgumentParser(description="Create a dependency tree for a given JSON file.")
     parser.add_argument("-f",
-                         "--file", 
+                         "--json-file", 
                         type=lambda x: _is_valid_path(parser, x), 
-                        required=False, help="The path to the JSON file.", 
+                        required=False, 
+                        help="The path to the JSON file.", 
                         default=DEFAULT_JSON_FILE_PATH)
-    parser.parse_args()
     
-    print(parser)
+    return parser.parse_args()
 
-    print(parser.file)
+def _traverse_tree(pkg, data: dict, indent = "- ") -> None:
+    """
+    Traverses the dependency tree.
+    """
+    print(f"{indent}{pkg}")
+    if pkg in data:
+        for dependency in data[pkg]:
+            _traverse_tree(dependency, data, "  " + indent)
+
+def create_dependency_tree(json_file_path: str) -> None:
+    """
+    Creates a dependency tree for a given JSON file.
+    """
+    with open(json_file_path, "r") as json_file:
+        data = json.load(json_file)
+        print(data)
+    
+    for pkg in data:
+        _traverse_tree(pkg, data)
+
+
+def main():
+    """
+    The main function of the script.
+    """
+    # Parse the arguments
+    args = arg_parser()
+    print(args.json_file)
+
+    # Create the dependency tree
+    create_dependency_tree(args.json_file)
 
 
 if __name__ == "__main__":
