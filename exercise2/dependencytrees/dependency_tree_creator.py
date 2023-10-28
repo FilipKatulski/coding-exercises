@@ -7,8 +7,9 @@ import json
 import os
 
 # The default path to the JSON file, in case the user doesn't provide one as an argument
-DEFAULT_JSON_FILE_PATH = "example1.json"
+DEFAULT_JSON_FILE_PATH = "/tmp/example1.json"
 
+# The dependency tree structure is held as an object of this class
 class DependencyTree:
     """
     A class that represents a dependency tree structure.
@@ -35,7 +36,8 @@ def arg_parser() -> argparse.Namespace:
     """
     Creates an argument parser for the script.
     """
-    parser = argparse.ArgumentParser(description="Create a dependency tree for a given JSON file.")
+    parser = argparse.ArgumentParser(description="Create a dependency tree for a given JSON file.\
+                                     If not specified otherwise, the script will use the default JSON file path, '/tmp/example1.json'.")
     parser.add_argument("-f",
                          "--json-file", 
                         type=lambda x: _is_valid_path(parser, x), 
@@ -49,7 +51,6 @@ def _traverse_tree(pkg, data: dict, structure_output: DependencyTree, indent = "
     """
     Traverses the dependency tree.
     """
-    # print(f"{indent}{pkg}")
     structure_output.structure.append(f"{indent}{pkg}")
     if pkg in data:
         for dependency in data[pkg]:
@@ -59,10 +60,10 @@ def _traverse_tree(pkg, data: dict, structure_output: DependencyTree, indent = "
 def create_dependency_tree(json_file_path: str) -> DependencyTree:
     """
     Creates a dependency tree object for a given JSON file.
+    Takes path to the JSON file as an argument and returns a DependencyTree object.
     """
     with open(json_file_path, "r") as json_file:
         json_data = json.load(json_file)
-        # print(json_data)
     
     # create a dependency tree object
     dep_tree = DependencyTree()
@@ -71,6 +72,7 @@ def create_dependency_tree(json_file_path: str) -> DependencyTree:
         _traverse_tree(package, data=json_data, structure_output=dep_tree)
 
     return dep_tree
+
 
 def main():
     """
@@ -82,7 +84,6 @@ def main():
     # Create the dependency tree
     result = create_dependency_tree(args.json_file)
 
-    print("Dependency tree structure:")
     print(result)
 
 if __name__ == "__main__":
