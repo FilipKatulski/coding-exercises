@@ -1,4 +1,4 @@
-all: dependencies test-executor build push 
+all: dependencies test-executor build-executor push 
 
 test: dependencies test-executor
 
