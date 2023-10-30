@@ -1,5 +1,3 @@
-TESTPYPI_USERNAME ?= __TOKEN__
-
 all: dependencies test-executor build push 
 
 test: dependencies test-executor
