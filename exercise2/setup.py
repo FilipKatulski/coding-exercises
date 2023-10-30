@@ -1,11 +1,13 @@
 from setuptools import find_packages, setup
 
+version = '1.0.1'
+
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='dependencytrees',
-    version='1.0.0',
+    version=version,
     packages=find_packages(),
     install_requires=[],
     setup_requires=['pytest-runner==6.0.0'],
