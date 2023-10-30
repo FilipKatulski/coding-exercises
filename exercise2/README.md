@@ -32,6 +32,12 @@ pytest tests
 
 By default the code takes an example file located in '/tmp/example1.json'. If you want to use another file, you can specify the path to the file with the '-f' / '--json-file' argument. 
 
+Run the code:
+    
+```bash
+python -m dependencytrees [-h] [-f JSON_FILE]
+```
+
 Please use '--help' to see the usage of the program.
 
 Example input file (JSON format):
@@ -47,12 +53,6 @@ Example input file (JSON format):
     ],
     "pkg3": []
 }
-```
-
-Run the code:
-    
-```bash
-python -m dependencytrees [-h] [-f JSON_FILE]
 ```
 
 Example's output:
