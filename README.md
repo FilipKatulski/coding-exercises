@@ -9,5 +9,7 @@ No test cases were specified in the exercise, so I created a few lists that are 
 ### Exercise 2:
 
 A standalone python package that returns the structure of a directory, given in the specified JSON format. 
-Further documentation is located in the [exercise2](exercise2) folder as a README.md file.
+Further documentation, installation and usage instructions are located in the [exercise2](exercise2) folder as a README.md file.
 The package is tested with pytest, tests are located in the [tests](exercise2/tests) folder. 
+
+Additionally to Github Releases, the package is registered on [TestPyPI](https://test.pypi.org/project/dependencytrees/). 
