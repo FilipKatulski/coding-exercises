@@ -24,6 +24,12 @@ jobs:
         needs: execute_pytest
         runs-on: ubuntu-22.04
         steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup python version
+              uses: actions/setup-python@v2
+              with:
+                    python-version: 3.11
             - name: build the binary wheel and source tarball
               run: make build
             - name: Store the distribution packages
