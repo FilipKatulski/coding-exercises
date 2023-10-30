@@ -1,9 +1,7 @@
 name: Run Pytest
 on: 
     push:
-        branches: 
-            - master
-            - main
+        branches:
             - dev
     workflow_dispatch:  # Magic line to enable manual workflow runs with the "Run workflow" button
         inputs: {} 
